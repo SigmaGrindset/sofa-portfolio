@@ -2,7 +2,9 @@ import { useEffect, useRef } from 'react';
 
 const VERT = `
 attribute vec2 a_pos;
-void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }
+void main() {
+  gl_Position = vec4(a_pos, 0.0, 1.0);
+}
 `;
 
 const FRAG = `
@@ -10,107 +12,109 @@ precision highp float;
 
 uniform vec2  u_res;
 uniform float u_time;
-uniform vec2  u_mouse;
-uniform vec3  u_c1;
-uniform vec3  u_c2;
-uniform vec3  u_c3;
-uniform vec3  u_bg;
-uniform float u_intensity;
+uniform float u_dark;
 
-// 2D hash + value noise
+// hash / noise utilities
 float hash(vec2 p) {
   p = fract(p * vec2(123.34, 456.21));
   p += dot(p, p + 45.32);
   return fract(p.x * p.y);
 }
-float vnoise(vec2 p) {
+
+float noise(vec2 p) {
   vec2 i = floor(p);
   vec2 f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
   float a = hash(i);
   float b = hash(i + vec2(1.0, 0.0));
   float c = hash(i + vec2(0.0, 1.0));
   float d = hash(i + vec2(1.0, 1.0));
-  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
 }
+
 float fbm(vec2 p) {
   float v = 0.0;
   float a = 0.5;
   for (int i = 0; i < 5; i++) {
-    v += a * vnoise(p);
+    v += a * noise(p);
     p *= 2.02;
     a *= 0.5;
   }
   return v;
 }
 
+// procedural starfield — layered for depth
+float starLayer(vec2 uv, float density, float size, float twinkleSpeed, float seed) {
+  vec2 g = uv * density;
+  vec2 i = floor(g);
+  vec2 f = fract(g);
+  float h = hash(i + seed);
+  // only some cells contain a star
+  float exists = step(0.985, h);
+  // jitter position within cell
+  vec2 c = vec2(hash(i + seed + 1.7), hash(i + seed + 3.3));
+  float d = length(f - c);
+  float star = smoothstep(size, 0.0, d);
+  // twinkle
+  float tw = 0.6 + 0.4 * sin(u_time * twinkleSpeed + h * 30.0);
+  return star * exists * tw;
+}
+
 void main() {
   vec2 uv = gl_FragCoord.xy / u_res.xy;
-  vec2 p = uv;
+  vec2 p = uv - 0.5;
   p.x *= u_res.x / u_res.y;
 
-  float t = u_time * 0.06;
+  // Base — deep navy
+  vec3 base = vec3(0.020, 0.024, 0.052);
 
-  // Domain warping — twice
-  vec2 q = vec2(
-    fbm(p + vec2(0.0, t)),
-    fbm(p + vec2(5.2, -t * 1.3))
+  // Nebula: domain-warped low-frequency fbm in palette colors, very muted
+  float t = u_time * 0.12;
+  vec2 q = p * 1.2;
+  vec2 flow = vec2(t * 0.35, t * 0.18);
+  vec2 warp = vec2(
+    fbm(q + flow + vec2(sin(t * 0.7), cos(t * 0.5))),
+    fbm(q - flow * 0.8 + vec2(cos(t * 0.6), sin(t * 0.9)) + 5.2)
   );
+  float n1 = fbm(q + warp * 2.4 + flow);
+  float n2 = fbm(q * 1.6 + warp * 1.8 - flow * 0.6 + 7.3);
 
-  vec2 r = vec2(
-    fbm(p + 4.0 * q + vec2(1.7 + t * 0.7, 9.2)),
-    fbm(p + 4.0 * q + vec2(8.3 - t * 0.5, 2.8))
-  );
+  // palette (violet / pink / cyan) — but desaturated and dim
+  vec3 violet = vec3(0.27, 0.18, 0.42);
+  vec3 pink   = vec3(0.36, 0.15, 0.32);
+  vec3 cyan   = vec3(0.07, 0.22, 0.32);
 
-  // Slight mouse parallax
-  r += (u_mouse - 0.5) * 0.25;
+  vec3 nebula = mix(violet, cyan, smoothstep(0.35, 0.75, n1));
+  nebula = mix(nebula, pink, smoothstep(0.55, 0.9, n2) * 0.55);
 
-  float n = fbm(p + 4.0 * r);
+  // mask the nebula so it's patchy, not a wash
+  float mask = smoothstep(0.42, 0.78, n1) * 0.7
+             + smoothstep(0.5, 0.85, n2) * 0.35;
+  mask *= 0.72; // overall intensity cap — keeps it muted
 
-  // Color blend
-  vec3 col = u_bg;
-  col = mix(col, u_c1, smoothstep(0.15, 0.65, n) * u_intensity);
-  col = mix(col, u_c2, smoothstep(0.35, 0.85, length(r)) * 0.55 * u_intensity);
-  col = mix(col, u_c3, smoothstep(0.55, 1.0, q.x + q.y) * 0.40 * u_intensity);
+  vec3 col = base + nebula * mask;
 
-  // Vignette
-  float vg = smoothstep(1.2, 0.35, length(uv - 0.5));
-  col *= mix(0.85, 1.05, vg);
+  // gentle radial vignette toward edges (slightly darker corners)
+  float vig = smoothstep(1.1, 0.25, length(p));
+  col *= mix(0.7, 1.0, vig);
+
+  // Starfield — three layers for parallax/depth
+  vec2 suv = uv * vec2(u_res.x / u_res.y, 1.0);
+  float stars = 0.0;
+  stars += starLayer(suv, 90.0,  0.012, 1.6, 1.0) * 0.55;
+  stars += starLayer(suv, 160.0, 0.008, 2.3, 7.0) * 0.75;
+  stars += starLayer(suv, 240.0, 0.006, 3.1, 13.0) * 0.9;
+
+  // tint stars slightly with palette so they're not pure white
+  vec3 starCol = mix(vec3(0.85, 0.88, 1.0), vec3(0.95, 0.88, 1.0), hash(floor(suv * 50.0)));
+  col += starCol * stars * 0.85;
+
+  // slight overall darken control (for light mode)
+  col = mix(col, vec3(0.97, 0.97, 0.95), u_dark);
 
   gl_FragColor = vec4(col, 1.0);
 }
 `;
-
-function hexToRgb(hex: string): [number, number, number] {
-  const h = hex.replace('#', '');
-  const n = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
-  return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
-}
-
-function readPalette() {
-  const cs = getComputedStyle(document.documentElement);
-  const isDark = document.documentElement.classList.contains('dark');
-  const get = (name: string, fb: string) => (cs.getPropertyValue(name).trim() || fb);
-  return {
-    c1: hexToRgb(get('--color-aurora-1', '#8B5CF6')),
-    c2: hexToRgb(get('--color-aurora-2', '#EC4899')),
-    c3: hexToRgb(get('--color-aurora-3', '#22D3EE')),
-    bg: hexToRgb(get('--color-bg', isDark ? '#05060D' : '#FAFAF7')),
-    intensity: isDark ? 1.0 : 0.45,
-  };
-}
-
-function compile(gl: WebGLRenderingContext, type: number, src: string) {
-  const sh = gl.createShader(type)!;
-  gl.shaderSource(sh, src);
-  gl.compileShader(sh);
-  if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
-    console.error(gl.getShaderInfoLog(sh));
-    gl.deleteShader(sh);
-    return null;
-  }
-  return sh;
-}
 
 export function AuroraBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -119,55 +123,38 @@ export function AuroraBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false });
+    const gl = canvas.getContext('webgl', { antialias: false, alpha: false, premultipliedAlpha: false });
     if (!gl) return;
 
-    const vs = compile(gl, gl.VERTEX_SHADER, VERT);
-    const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG);
-    if (!vs || !fs) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    const compile = (type: number, src: string) => {
+      const sh = gl.createShader(type)!;
+      gl.shaderSource(sh, src);
+      gl.compileShader(sh);
+      return sh;
+    };
+    const vs = compile(gl.VERTEX_SHADER, VERT);
+    const fs = compile(gl.FRAGMENT_SHADER, FRAG);
     const prog = gl.createProgram()!;
     gl.attachShader(prog, vs);
     gl.attachShader(prog, fs);
     gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-      console.error(gl.getProgramInfoLog(prog));
-      return;
-    }
     gl.useProgram(prog);
 
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-      -1, -1, 1, -1, -1, 1,
-      -1, 1, 1, -1, 1, 1,
-    ]), gl.STATIC_DRAW);
-
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
     const aPos = gl.getAttribLocation(prog, 'a_pos');
     gl.enableVertexAttribArray(aPos);
     gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
     const uRes = gl.getUniformLocation(prog, 'u_res');
     const uTime = gl.getUniformLocation(prog, 'u_time');
-    const uMouse = gl.getUniformLocation(prog, 'u_mouse');
-    const uC1 = gl.getUniformLocation(prog, 'u_c1');
-    const uC2 = gl.getUniformLocation(prog, 'u_c2');
-    const uC3 = gl.getUniformLocation(prog, 'u_c3');
-    const uBg = gl.getUniformLocation(prog, 'u_bg');
-    const uIntensity = gl.getUniformLocation(prog, 'u_intensity');
+    const uDark = gl.getUniformLocation(prog, 'u_dark');
 
-    let pal = readPalette();
-    const applyPalette = () => {
-      gl.uniform3fv(uC1, pal.c1);
-      gl.uniform3fv(uC2, pal.c2);
-      gl.uniform3fv(uC3, pal.c3);
-      gl.uniform3fv(uBg, pal.bg);
-      gl.uniform1f(uIntensity, pal.intensity);
-    };
-    applyPalette();
-
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = Math.floor(window.innerWidth * dpr);
       const h = Math.floor(window.innerHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
@@ -180,38 +167,22 @@ export function AuroraBackground() {
     resize();
     window.addEventListener('resize', resize);
 
-    let mx = 0.5, my = 0.5, tmx = 0.5, tmy = 0.5;
-    const onMove = (e: MouseEvent) => {
-      tmx = e.clientX / window.innerWidth;
-      tmy = 1.0 - e.clientY / window.innerHeight;
-    };
-    window.addEventListener('mousemove', onMove, { passive: true });
-
-    const themeObs = new MutationObserver(() => {
-      pal = readPalette();
-      applyPalette();
-    });
-    themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const start = performance.now();
-    let raf = 0;
-    const render = (now: number) => {
-      const t = reduce ? 0 : (now - start) / 1000;
-      mx += (tmx - mx) * 0.04;
-      my += (tmy - my) * 0.04;
+    let rafId = 0;
+
+    const render = () => {
+      const t = (performance.now() - start) / 1000;
       gl.uniform1f(uTime, t);
-      gl.uniform2f(uMouse, mx, my);
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-      raf = requestAnimationFrame(render);
+      const isDark = document.documentElement.classList.contains('dark');
+      gl.uniform1f(uDark, isDark ? 0.0 : 0.92);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      if (!reduced) rafId = window.requestAnimationFrame(render);
     };
-    raf = requestAnimationFrame(render);
+    render();
 
     return () => {
-      cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', onMove);
-      themeObs.disconnect();
+      window.cancelAnimationFrame(rafId);
       gl.deleteBuffer(buf);
       gl.deleteProgram(prog);
       gl.deleteShader(vs);

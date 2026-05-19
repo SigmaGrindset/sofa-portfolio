@@ -107,7 +107,7 @@ export const projects: Project[] = [
     role: { en: 'Full-stack development', hr: 'Full-stack razvoj' },
     tech: ['Python', 'BeautifulSoup4', 'Node.js', 'Express', 'PostgreSQL', 'React', 'TypeScript', 'TanStack Router', 'Tailwind', 'D3'],
     featured: true,
-    year: '2024',
+    year: '2026',
     links: {
       github: 'https://github.com/SigmaGrindset/usa-elections',
       live: 'https://usa-elections-client.vercel.app/',
@@ -165,7 +165,7 @@ export const projects: Project[] = [
     role: { en: 'Frontend & UI design', hr: 'Izrada frontenda i dizajn sučelja' },
     tech: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'OAuth 2.0', 'Figma'],
     featured: false,
-    year: '2025',
+    year: '2026',
     links: {
       github: 'https://github.com/NiHorvat67/Pokemoni',
     },
@@ -207,7 +207,7 @@ export const projects: Project[] = [
     ],
     role: { en: 'Backend development', hr: 'Backend razvoj' },
     tech: ['Node.js', 'Express', 'EJS', 'PostgreSQL'],
-    year: '2024',
+    year: '2026',
     links: {
       github: 'https://github.com/SigmaGrindset/projekt-r',
       live: 'https://projekt-r-zeta.vercel.app/user',
@@ -254,7 +254,7 @@ export const projects: Project[] = [
     },
     role: { en: 'Full-stack (solo)', hr: 'Samostalni projekt (full-stack)' },
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Spotify API', 'OAuth 2.0'],
-    year: '2023',
+    year: '2025',
     links: {
       github: 'https://github.com/SigmaGrindset/spotify_stats',
       live: 'https://spotify-stats-frontend-phi.vercel.app/',
@@ -262,7 +262,7 @@ export const projects: Project[] = [
   },
   {
     id: 'nba-scraper',
-    title: 'NBA Scraper',
+    title: 'NBA Stats',
     tagline: {
       en: 'Automated NBA game data collection with a simple web view',
       hr: 'Automatizirano prikupljanje NBA podataka s jednostavnim web prikazom',

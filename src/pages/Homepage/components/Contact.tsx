@@ -20,22 +20,43 @@ export function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.contact-email .ch', {
-        y: 40,
-        opacity: 0,
-        stagger: 0.02,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: rootRef.current, start: 'top 70%' },
+      const chars = gsap.utils.toArray<HTMLElement>('.contact-email .ch');
+      const rows = gsap.utils.toArray<HTMLElement>('.contact-row');
+      gsap.set(chars, { opacity: 0, y: 40 });
+      gsap.set(rows, { opacity: 0, y: 16 });
+
+      ScrollTrigger.create({
+        trigger: rootRef.current,
+        start: 'top bottom-=80',
+        once: true,
+        onEnter: () => {
+          gsap.to(chars, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.02,
+            duration: 0.8,
+            ease: 'power3.out',
+          });
+          gsap.to(rows, {
+            opacity: 1,
+            y: 0,
+            stagger: 0.08,
+            duration: 0.6,
+            ease: 'power3.out',
+          });
+        },
       });
-      gsap.from('.contact-row', {
-        y: 16,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.6,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: rootRef.current, start: 'top 75%' },
-      });
+      ScrollTrigger.refresh();
+
+      const failsafe = window.setTimeout(() => {
+        gsap.to([...chars, ...rows], {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power3.out',
+        });
+      }, 2500);
+      return () => window.clearTimeout(failsafe);
     }, rootRef);
     return () => ctx.revert();
   }, []);
@@ -63,26 +84,24 @@ export function Contact() {
           ))}
         </a>
 
-        <div className="glass mt-16 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2">
-          <ContactRow label={translations.contact.phone[language]} value={PHONE} href={`tel:${PHONE.replace(/\s+/g, '')}`} />
-          <ContactRow label={translations.contact.email[language]} value={EMAIL} href={`mailto:${EMAIL}`} />
-          <ContactRow label={translations.contact.github[language]} value={GITHUB} href={`https://${GITHUB}`} external />
-          <ContactRow label={translations.contact.linkedin[language]} value={LINKEDIN_LABEL} href={LINKEDIN_URL} external />
-          <ContactRow label={translations.contact.cv[language]} value={CV_LABEL} href={CV_URL} external />
+        <div className="mt-16 flex flex-wrap gap-2.5">
+          <ContactChip label={translations.contact.phone[language]} href={`tel:${PHONE.replace(/\s+/g, '')}`} />
+          <ContactChip label={translations.contact.email[language]} href={`mailto:${EMAIL}`} />
+          <ContactChip label={translations.contact.github[language]} href={`https://${GITHUB}`} external />
+          <ContactChip label={translations.contact.linkedin[language]} href={LINKEDIN_URL} external />
+          <ContactChip label={translations.contact.cv[language]} href={CV_URL} external />
         </div>
       </div>
     </section>
   );
 }
 
-function ContactRow({
+function ContactChip({
   label,
-  value,
   href,
   external = false,
 }: {
   label: string;
-  value: string;
   href: string;
   external?: boolean;
 }) {
@@ -91,14 +110,11 @@ function ContactRow({
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
-      className="contact-row group flex items-center justify-between gap-4 border-r border-b border-default p-6 transition-colors last:border-r-0 hover:bg-white/[0.03] md:[&:nth-child(2n)]:border-r-0 md:last:col-span-2"
+      className="contact-row group inline-flex items-center gap-2 rounded-full border border-default bg-surface/40 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] hover:text-fg"
     >
-      <div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">{label}</div>
-        <div className="mt-1 text-fg">{value}</div>
-      </div>
-      <span className="text-muted transition-all duration-300 group-hover:translate-x-1 group-hover:text-[var(--color-accent)]">
-        →
+      <span>{label}</span>
+      <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+        {external ? '↗' : '→'}
       </span>
     </a>
   );

@@ -225,6 +225,16 @@
   contain: strict;
 }
 
+.aurora-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  display: block;
+}
+
 .aurora-blob {
   position: absolute;
   width: 60vmax;
@@ -268,20 +278,61 @@
   animation: aurora-drift-3 16s ease-in-out infinite;
 }
 
-/* Subtle grain overlay (SVG noise) */
+/* Animated film grain — fine layer */
+@keyframes grain-shift {
+  0%   { transform: translate3d(0, 0, 0); }
+  10%  { transform: translate3d(-3%, -2%, 0); }
+  20%  { transform: translate3d(2%, 3%, 0); }
+  30%  { transform: translate3d(-4%, 1%, 0); }
+  40%  { transform: translate3d(3%, -3%, 0); }
+  50%  { transform: translate3d(-2%, 2%, 0); }
+  60%  { transform: translate3d(4%, -1%, 0); }
+  70%  { transform: translate3d(-3%, -3%, 0); }
+  80%  { transform: translate3d(2%, 4%, 0); }
+  90%  { transform: translate3d(-1%, -2%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes grain-flicker {
+  0%, 100% { opacity: var(--grain-opacity, 0.85); }
+  50%      { opacity: calc(var(--grain-opacity, 0.85) * 0.75); }
+}
+
 .aurora-grain {
   position: fixed;
-  inset: 0;
+  inset: -10%;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.5;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --grain-opacity: 0.85;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   mix-blend-mode: overlay;
+  animation:
+    grain-shift 1.2s steps(6) infinite,
+    grain-flicker 5s ease-in-out infinite;
+  will-change: transform, opacity;
 }
-:root:not(.dark) .aurora-grain { opacity: 0.25; mix-blend-mode: multiply; }
+
+/* Coarser secondary grain — slower, larger speckle */
+.aurora-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='340'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: soft-light;
+  opacity: 0.6;
+  animation: grain-shift 2.8s steps(8) infinite reverse;
+}
+
+:root:not(.dark) .aurora-grain {
+  --grain-opacity: 0.45;
+  mix-blend-mode: multiply;
+}
+:root:not(.dark) .aurora-grain::after { opacity: 0.35; }
 
 @media (prefers-reduced-motion: reduce) {
   .aurora-blob > span,
+  .aurora-grain,
+  .aurora-grain::after,
   .animate-marquee {
     animation: none !important;
   }

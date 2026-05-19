@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"D:/Antonio/sofa-portfolio\" 2>&1 | head -20; echo \"---\"; ls \"D:/Antonio\" 2>&1 | head -20)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

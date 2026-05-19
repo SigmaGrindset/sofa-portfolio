@@ -53,6 +53,8 @@ export const translations = {
     features: { en: 'Features', hr: 'Značajke' },
     note: { en: 'Note', hr: 'Napomena' },
     next: { en: 'Next', hr: 'Sljedeći' },
+    viewSource: { en: 'View source', hr: 'Izvorni kod' },
+    viewLive: { en: 'Live demo', hr: 'Pogledaj uživo' },
   },
   contact: {
     heading: { en: "Let's talk", hr: 'Kontakt' },

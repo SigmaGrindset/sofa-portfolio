@@ -108,6 +108,10 @@ export const projects: Project[] = [
     tech: ['Python', 'BeautifulSoup4', 'Node.js', 'Express', 'PostgreSQL', 'React', 'TypeScript', 'TanStack Router', 'Tailwind', 'D3'],
     featured: true,
     year: '2024',
+    links: {
+      github: 'https://github.com/SigmaGrindset/usa-elections',
+      live: 'https://usa-elections-client.vercel.app/',
+    },
   },
   {
     id: 'gearshare',
@@ -162,6 +166,9 @@ export const projects: Project[] = [
     tech: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'OAuth 2.0', 'Figma'],
     featured: false,
     year: '2025',
+    links: {
+      github: 'https://github.com/NiHorvat67/Pokemoni',
+    },
   },
   {
     id: 'learnflow',
@@ -201,6 +208,10 @@ export const projects: Project[] = [
     role: { en: 'Backend development', hr: 'Backend razvoj' },
     tech: ['Node.js', 'Express', 'EJS', 'PostgreSQL'],
     year: '2024',
+    links: {
+      github: 'https://github.com/SigmaGrindset/projekt-r',
+      live: 'https://projekt-r-zeta.vercel.app/user',
+    },
   },
   {
     id: 'spotilens',
@@ -244,6 +255,10 @@ export const projects: Project[] = [
     role: { en: 'Full-stack (solo)', hr: 'Samostalni projekt (full-stack)' },
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Spotify API', 'OAuth 2.0'],
     year: '2023',
+    links: {
+      github: 'https://github.com/SigmaGrindset/spotify_stats',
+      live: 'https://spotify-stats-frontend-phi.vercel.app/',
+    },
   },
   {
     id: 'nba-scraper',
@@ -283,6 +298,9 @@ export const projects: Project[] = [
     role: { en: 'Full-stack (solo)', hr: 'Samostalni projekt (full-stack)' },
     tech: ['Python', 'Selenium', 'BeautifulSoup', 'Node.js', 'HTML', 'CSS', 'JavaScript'],
     year: '2023',
+    links: {
+      github: 'https://github.com/SigmaGrindset/nba-stats',
+    },
   },
 ];
 

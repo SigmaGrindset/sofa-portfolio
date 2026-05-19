@@ -31,8 +31,6 @@ export function Skills() {
     { key: 'other' as const, items: skillGroups.other },
   ];
 
-  const marqueeItems = [...skillGroups.frontend, ...skillGroups.backend, ...skillGroups.design];
-
   return (
     <section ref={rootRef} id="skills" className="border-t border-default py-24 md:py-32">
       <div className="container-page">
@@ -59,17 +57,6 @@ export function Skills() {
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-20 overflow-hidden border-y border-default py-6">
-        <div className="flex w-max animate-marquee gap-12 font-display text-2xl font-bold uppercase tracking-tight text-muted md:text-4xl">
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span key={i} className="flex items-center gap-12">
-              {item}
-              <span className="text-[var(--color-action)]">✦</span>
-            </span>
           ))}
         </div>
       </div>

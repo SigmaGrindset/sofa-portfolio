@@ -73,7 +73,7 @@ export function Contact() {
 
         <a
           href={`mailto:${EMAIL}`}
-          className="contact-email group block break-all font-display text-4xl font-black tracking-tight text-fg transition-colors hover:text-[var(--color-action)] sm:text-6xl md:text-7xl lg:text-8xl"
+          className="contact-email group block break-all font-display text-4xl font-black tracking-tight text-fg transition-colors hover:text-[var(--color-action)] sm:text-6xl md:text-7xl lg:text-[5.25rem]"
         >
           {Array.from(EMAIL).map((c, i) => (
             <span key={i} className="ch inline-block transition-transform duration-300 group-hover:-translate-y-1" style={{ transitionDelay: `${i * 8}ms` }}>

@@ -40,7 +40,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* smooth scroll handled by Lenis (src/components/layout/SmoothScroll.tsx) */
   }
   body {
     background-color: var(--color-bg);

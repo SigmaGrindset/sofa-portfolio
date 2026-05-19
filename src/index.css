@@ -107,12 +107,10 @@
       0 8px 24px -12px rgba(0, 0, 0, 0.6);
   }
 
-  .aurora-text,
-  .aurora-text * {
+  .aurora-text {
     background: linear-gradient(
-      120deg,
-      var(--color-aurora-1) 0%,
-      var(--color-aurora-2) 45%,
+      90deg,
+      var(--color-aurora-2) 0%,
       var(--color-aurora-3) 100%
     );
     -webkit-background-clip: text;

@@ -15,17 +15,34 @@ export function ProjectsGrid() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.project-card', {
-        y: 36,
-        stagger: 0.08,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: 'top 90%',
-          once: true,
-        },
+      const cards = gsap.utils.toArray<HTMLElement>('.project-card');
+      gsap.set(cards, { opacity: 0, y: 48, scale: 0.96 });
+      ScrollTrigger.batch(cards, {
+        start: 'top bottom+=120',
+        once: true,
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            stagger: 0.1,
+            ease: 'power3.out',
+            overwrite: true,
+          }),
       });
+      ScrollTrigger.refresh();
+
+      const failsafe = window.setTimeout(() => {
+        gsap.to('.project-card', {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: 'power3.out',
+        });
+      }, 2500);
+      return () => window.clearTimeout(failsafe);
     }, rootRef);
     return () => ctx.revert();
   }, []);
@@ -45,13 +62,13 @@ export function ProjectsGrid() {
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="flex flex-col gap-6">
           {featured.map((p) => (
             <ProjectCard key={p.id} project={p} featured />
           ))}
         </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
           {rest.map((p) => (
             <ProjectCard key={p.id} project={p} />
           ))}
@@ -73,8 +90,8 @@ function ProjectCard({
     <Link
       to="/projects/$projectId"
       params={{ projectId: project.id }}
-      className={`project-card glass group relative isolate flex flex-col overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 ${
-        featured ? 'md:p-8' : ''
+      className={`project-card glass group relative isolate flex flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/20 ${
+        featured ? 'p-8 md:p-12' : 'p-6'
       }`}
     >
       <div
@@ -86,28 +103,52 @@ function ProjectCard({
         }}
       />
 
+      {featured && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full opacity-40 blur-3xl"
+          style={{
+            background:
+              'radial-gradient(circle, rgba(236,72,153,0.35), transparent 70%)',
+          }}
+        />
+      )}
+
       <div className="relative mb-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-        <span>{project.year}</span>
+        <span className="inline-flex items-center gap-3">
+          {project.year}
+          {featured && <span className="text-accent">★ Featured</span>}
+        </span>
         <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
           ↗
         </span>
       </div>
 
-      <h3
-        className={`relative font-display font-bold tracking-tight text-fg ${
-          featured ? 'text-3xl md:text-4xl' : 'text-2xl'
-        }`}
-      >
-        {project.title}
-      </h3>
-      <p className="relative mt-2 text-muted">{project.tagline[language]}</p>
-
-      {featured && (
-        <div className="relative mt-6 flex flex-wrap gap-1.5">
-          {project.tech.slice(0, 6).map((t) => (
-            <Tag key={t}>{t}</Tag>
-          ))}
+      {featured ? (
+        <div className="relative grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-8">
+            <h3 className="font-display text-3xl font-bold tracking-tight text-fg md:text-5xl lg:text-6xl">
+              {project.title}
+            </h3>
+            <p className="mt-3 max-w-xl text-base text-muted md:text-lg">
+              {project.tagline[language]}
+            </p>
+          </div>
+          <div className="md:col-span-4 md:justify-self-end">
+            <div className="flex flex-wrap gap-1.5 md:justify-end">
+              {project.tech.slice(0, 6).map((t) => (
+                <Tag key={t}>{t}</Tag>
+              ))}
+            </div>
+          </div>
         </div>
+      ) : (
+        <>
+          <h3 className="relative font-display text-2xl font-bold tracking-tight text-fg">
+            {project.title}
+          </h3>
+          <p className="relative mt-2 text-muted">{project.tagline[language]}</p>
+        </>
       )}
     </Link>
   );

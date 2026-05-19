@@ -160,7 +160,7 @@ export const projects: Project[] = [
     ],
     role: { en: 'Frontend & UI design', hr: 'Izrada frontenda i dizajn sučelja' },
     tech: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'OAuth 2.0', 'Figma'],
-    featured: true,
+    featured: false,
     year: '2025',
   },
   {

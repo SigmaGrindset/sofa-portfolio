@@ -19,6 +19,8 @@ export const translations = {
       hr: 'Gradim promišljena web iskustva uz React, TypeScript i smisao za dizajn.',
     },
     scroll: { en: 'Scroll', hr: 'Skrolaj' },
+    downloadCv: { en: 'Download CV', hr: 'Preuzmi CV' },
+    getInTouch: { en: 'Get in touch', hr: 'Javi se' },
   },
   about: {
     heading: { en: 'About', hr: 'O meni' },
@@ -61,16 +63,17 @@ export const translations = {
     email: { en: 'Email', hr: 'Email' },
     phone: { en: 'Phone', hr: 'Telefon' },
     github: { en: 'GitHub', hr: 'GitHub' },
+    linkedin: { en: 'LinkedIn', hr: 'LinkedIn' },
+    cv: { en: 'CV / Resume', hr: 'Životopis' },
   },
   footer: {
     rights: { en: 'All rights reserved', hr: 'Sva prava pridržana' },
-    builtWith: { en: 'Built with React, TanStack & GSAP', hr: 'Izrađeno s React, TanStack i GSAP' },
   },
 } as const;
 
 export const skillGroups = {
-  frontend: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind', 'GSAP'],
+  frontend: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'TanStack', 'HTML5', 'CSS3', 'Tailwind', 'GSAP'],
   backend: ['Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'Python'],
-  design: ['Figma', 'UI/UX', 'Shift Nudge'],
+  design: ['Figma', 'UI/UX'],
   other: ['Git', 'Blender'],
 };

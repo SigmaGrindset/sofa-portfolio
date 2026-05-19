@@ -9,6 +9,10 @@ gsap.registerPlugin(ScrollTrigger);
 const EMAIL = 'antoniobnoni@gmail.com';
 const PHONE = '091 948 6264';
 const GITHUB = 'github.com/SigmaGrindset';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/antonio-batarilovi%C4%87-509a26240/';
+const LINKEDIN_LABEL = 'linkedin.com/in/antonio-batarilović';
+const CV_URL = '/cv.pdf';
+const CV_LABEL = 'cv.pdf';
 
 export function Contact() {
   const { language } = useLanguage();
@@ -59,10 +63,12 @@ export function Contact() {
           ))}
         </a>
 
-        <div className="glass mt-16 grid gap-px overflow-hidden rounded-2xl md:grid-cols-3">
+        <div className="glass mt-16 grid gap-px overflow-hidden rounded-2xl md:grid-cols-2">
           <ContactRow label={translations.contact.phone[language]} value={PHONE} href={`tel:${PHONE.replace(/\s+/g, '')}`} />
           <ContactRow label={translations.contact.email[language]} value={EMAIL} href={`mailto:${EMAIL}`} />
           <ContactRow label={translations.contact.github[language]} value={GITHUB} href={`https://${GITHUB}`} external />
+          <ContactRow label={translations.contact.linkedin[language]} value={LINKEDIN_LABEL} href={LINKEDIN_URL} external />
+          <ContactRow label={translations.contact.cv[language]} value={CV_LABEL} href={CV_URL} external />
         </div>
       </div>
     </section>
@@ -85,7 +91,7 @@ function ContactRow({
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
-      className="contact-row group flex items-center justify-between gap-4 border-r border-b border-default p-6 transition-colors last:border-r-0 hover:bg-white/[0.03] md:[&:nth-child(3n)]:border-r-0"
+      className="contact-row group flex items-center justify-between gap-4 border-r border-b border-default p-6 transition-colors last:border-r-0 hover:bg-white/[0.03] md:[&:nth-child(2n)]:border-r-0 md:last:col-span-2"
     >
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">{label}</div>

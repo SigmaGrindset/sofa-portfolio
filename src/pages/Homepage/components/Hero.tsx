@@ -19,6 +19,7 @@ export function Hero() {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
       tl.from('.hero-status', { y: 12, opacity: 0, duration: 0.6 })
         .from(chars, { y: 80, opacity: 0, stagger: 0.025, duration: 0.8 }, '-=0.2')
+        .from('.hero-word-aurora', { y: 80, opacity: 0, duration: 0.9 }, '<')
         .from('.hero-intro', { y: 16, opacity: 0, duration: 0.7 }, '-=0.4')
         .from('.hero-meta', { y: 12, opacity: 0, duration: 0.6 }, '-=0.5')
         .from('.hero-scroll', { y: -8, opacity: 0, duration: 0.5 }, '-=0.3');
@@ -55,22 +56,51 @@ export function Hero() {
           ref={nameRef}
           className="font-display text-5xl font-black leading-[0.95] tracking-tight text-balance sm:text-7xl md:text-8xl lg:text-[9rem]"
         >
-          {words.map((word, wi) => (
-            <span
-              key={wi}
-              className={`mr-4 inline-block whitespace-nowrap ${wi === words.length - 1 ? 'aurora-text' : ''}`}
-            >
-              {Array.from(word).map((ch, ci) => (
-                <span key={ci} className="hero-char inline-block">
-                  {ch}
+          {words.map((word, wi) => {
+            const isAurora = wi === words.length - 1;
+            if (isAurora) {
+              return (
+                <span
+                  key={wi}
+                  className="hero-word-aurora aurora-text mr-4 inline-block whitespace-nowrap"
+                >
+                  {word}
                 </span>
-              ))}
-            </span>
-          ))}
+              );
+            }
+            return (
+              <span key={wi} className="mr-4 inline-block whitespace-nowrap">
+                {Array.from(word).map((ch, ci) => (
+                  <span key={ci} className="hero-char inline-block">
+                    {ch}
+                  </span>
+                ))}
+              </span>
+            );
+          })}
         </h1>
 
         <div className="hero-intro mt-8 max-w-2xl text-lg text-muted md:text-xl">
           {translations.hero.intro[language]}
+        </div>
+
+        <div className="hero-intro mt-8 flex flex-wrap items-center gap-3">
+          <a
+            href="/cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-[var(--color-accent-fg)] transition-transform hover:-translate-y-0.5"
+          >
+            <span>{translations.hero.downloadCv[language]}</span>
+            <span className="transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+          </a>
+          <a
+            href="#contact"
+            className="glass group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-fg transition-transform hover:-translate-y-0.5"
+          >
+            <span>{translations.hero.getInTouch[language]}</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
         </div>
 
         <div className="hero-meta mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-xs uppercase tracking-wider text-muted">

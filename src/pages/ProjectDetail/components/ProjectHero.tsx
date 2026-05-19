@@ -16,9 +16,6 @@ export function ProjectHero({ project }: { project: Project }) {
       <h1 className="pd-anim font-display text-5xl font-black leading-[0.95] tracking-tight text-balance md:text-7xl lg:text-8xl">
         {project.title}
       </h1>
-      <p className="pd-anim mt-6 max-w-2xl text-xl text-muted md:text-2xl">
-        {project.tagline[language]}
-      </p>
 
       {(github || live) && (
         <div className="pd-anim mt-8 flex flex-wrap items-center gap-3">

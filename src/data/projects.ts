@@ -24,38 +24,30 @@ export const projects: Project[] = [
     },
     description: {
       en: [
-        'A web app that lets employees organize their weekly meals and gives the catering service a clear overview of orders for meal prep. Built during the Sofascore Frontend Academy.',
-        'One-stop shop for managing office lunches. Employees pick their meals for the week, can transfer a lunch to a colleague if they cannot make it, and leave feedback on the food.',
-        'The catering service manages the meal catalog and plans the weekly menus. The admin role covers toggling users on/off, tracking unpaid meals and setting order deadlines.',
-        'The academy simulated working inside a company — we worked in a team with mentors, through Scrum sprints. I took away much more than just code: how teamwork actually plays out, how to read Figma designs, how code review raises quality and how to plan sprints.',
+        'A web app that lets employees organize their weekly meals and gives the catering service a clear overview of orders. Built during the Sofascore Frontend Academy.',
+        'Employees pick their meals for the week, can transfer a lunch to a colleague if they cannot make it, and leave feedback on the food. Catering manages the menu, admin handles users, unpaid meals and deadlines.',
       ],
       hr: [
-        'Web aplikacija koja zaposlenicima omogućuje organizaciju tjednih obroka, a catering službi daje jasan pregled narudžbi za pripremu jela. Razvijeno u sklopu Sofascore Frontend Academy.',
-        'Jedinstveno mjesto za upravljanje ručkovima u uredu. Zaposlenici biraju obroke za tjedan, mogu prepustiti ručak kolegi ako ne mogu doći i ostaviti povratnu informaciju o hrani.',
-        'Catering služba upravlja katalogom jela i planira tjedne menije. Admin uloga pokriva uključivanje/isključivanje korisnika, praćenje neplaćenih obroka i postavljanje rokova za narudžbe.',
-        'Akademija je simulirala rad u firmi — radili smo u timu uz mentore, kroz Scrum sprintove. Iz toga sam ponio puno više od samog koda: kako timski rad zaista funkcionira, kako se čita Figma dizajn, kako code review podiže kvalitetu i kako planirati sprintove.',
+        'Web aplikacija koja zaposlenicima omogućuje organizaciju tjednih obroka, a catering službi daje jasan pregled narudžbi. Razvijeno u sklopu Sofascore Frontend Academy.',
+        'Zaposlenici biraju obroke za tjedan, mogu prepustiti ručak kolegi i ostaviti povratnu informaciju o hrani. Catering upravlja menijem, admin korisnicima, neplaćenim obrocima i rokovima.',
       ],
     },
     features: [
       {
-        en: 'Weekly meal selection per employee',
-        hr: 'Tjedni odabir obroka po zaposleniku',
-      },
-      {
-        en: 'Transfer a lunch to a colleague',
+        en: 'Lunch transfer between colleagues',
         hr: 'Prepuštanje ručka kolegi',
       },
       {
-        en: 'Feedback and ratings on meals',
+        en: 'Meal feedback and ratings',
         hr: 'Povratne informacije i ocjene jela',
       },
       {
-        en: 'Catering: manage meal catalog and weekly menus',
-        hr: 'Catering: upravljanje katalogom jela i tjednim menijima',
+        en: 'Catering menu management',
+        hr: 'Upravljanje menijem za catering',
       },
       {
-        en: 'Admin: user toggles, unpaid meals tracking, order deadlines',
-        hr: 'Admin: upravljanje korisnicima, praćenje neplaćenih obroka, rokovi narudžbi',
+        en: 'Admin: users, payments, deadlines',
+        hr: 'Admin: korisnici, plaćanja, rokovi',
       },
     ],
     role: { en: 'Frontend development', hr: 'Izrada frontenda' },
@@ -72,36 +64,30 @@ export const projects: Project[] = [
     },
     description: {
       en: [
-        'An interactive visualization of every U.S. presidential election from 1789 to 2024. For each year you can see the winner, the electoral vote count per candidate and the results in each state.',
-        'A standout feature is the comparison view — pick two elections and the app highlights the "swing states", the ones that changed party between them.',
-        'Data was collected by scraping the official National Archives pages (archives.gov/electoral-college).',
+        'An interactive visualization of every U.S. presidential election from 1789 to 2024 — winner, electoral votes per candidate and state-by-state results.',
+        'The standout feature is the comparison view: pick two elections and the app highlights the "swing states" that changed party between them. Data was scraped from the official National Archives pages.',
       ],
       hr: [
-        'Interaktivna vizualizacija svih američkih predsjedničkih izbora od 1789. do 2024. Za svaku godinu prikazan je pobjednik, broj elektorskih glasova po kandidatu te rezultati po saveznim državama.',
-        'Posebna značajka je usporedni prikaz — odabirom dvaju izbora aplikacija ističe „swing states“, države koje su između tih izbora promijenile stranku.',
-        'Podaci su prikupljeni scrapeanjem službenih stranica National Archivesa (archives.gov/electoral-college).',
+        'Interaktivna vizualizacija svih američkih predsjedničkih izbora od 1789. do 2024. — pobjednik, broj elektorskih glasova po kandidatu i rezultati po saveznim državama.',
+        'Posebna značajka je usporedni prikaz: odabirom dvaju izbora aplikacija ističe „swing states“, države koje su promijenile stranku. Podaci su scrapeani sa službenih stranica National Archivesa.',
       ],
     },
     features: [
       {
-        en: 'Interactive state map for every election year',
-        hr: 'Interaktivna karta saveznih država za svaku izbornu godinu',
+        en: 'Interactive map per election year',
+        hr: 'Interaktivna karta po izbornoj godini',
       },
       {
         en: 'Per-candidate electoral vote breakdown',
         hr: 'Razrada elektorskih glasova po kandidatu',
       },
       {
-        en: 'State-by-state results',
-        hr: 'Rezultati po saveznim državama',
-      },
-      {
         en: 'Comparison view with swing-state highlighting',
         hr: 'Usporedni prikaz s isticanjem swing-država',
       },
       {
-        en: 'Custom scraper pipeline from the National Archives',
-        hr: 'Vlastiti scraper pipeline s National Archivesa',
+        en: 'Custom National Archives scraper',
+        hr: 'Vlastiti scraper s National Archivesa',
       },
     ],
     role: { en: 'Full-stack development', hr: 'Full-stack razvoj' },
@@ -122,44 +108,30 @@ export const projects: Project[] = [
     },
     description: {
       en: [
-        'The outcome of a team project for the Software Engineering course at FER. GearShare is a platform for renting seasonal sports gear — skis, snowboards, bikes, kayaks — connecting retailers with customers.',
-        'The motivation is to lower the cost and hassle of owning seasonal gear and to make existing gear more usable. Customers get flexible access to quality gear when they need it; retailers get an extra sales channel and a transparent reservation system with reviews.',
-        'Through development we picked up modern web architecture patterns, OAuth 2.0 integration, role and permission management, and good practices for documentation, testing and team collaboration.',
+        'A team project for the Software Engineering course at FER. GearShare is a platform for renting seasonal sports gear — skis, snowboards, bikes, kayaks — connecting retailers with customers.',
+        'The motivation is to lower the cost of owning seasonal gear and to make existing gear more usable. Customers get flexible access to quality gear; retailers get an extra sales channel with a transparent reservation system and reviews.',
       ],
       hr: [
-        'Rezultat timskog projekta na kolegiju Programsko inženjerstvo na FER-u. GearShare je platforma za najam sezonske sportske opreme — skija, snowboarda, bicikala, kajaka — koja povezuje trgovce s kupcima.',
-        'Motivacija je smanjiti trošak i komplikaciju posjedovanja sezonske opreme te bolje iskoristiti onu koja već postoji. Kupci dobivaju fleksibilan pristup kvalitetnoj opremi kada im treba; trgovci dobivaju dodatni prodajni kanal i transparentan sustav rezervacija s recenzijama.',
-        'Kroz razvoj smo svladali moderne arhitekturne obrasce za web, OAuth 2.0 integraciju, upravljanje ulogama i pravima te dobre prakse dokumentiranja, testiranja i timske suradnje.',
+        'Timski projekt na kolegiju Programsko inženjerstvo na FER-u. GearShare je platforma za najam sezonske sportske opreme — skija, snowboarda, bicikala, kajaka — koja povezuje trgovce s kupcima.',
+        'Motivacija je smanjiti trošak posjedovanja sezonske opreme te bolje iskoristiti onu koja već postoji. Kupci dobivaju fleksibilan pristup kvalitetnoj opremi; trgovci dodatni prodajni kanal s transparentnim sustavom rezervacija i recenzijama.',
       ],
     },
     features: [
       {
-        en: 'Catalog browsing with filters',
-        hr: 'Pregled kataloga uz filtere',
-      },
-      {
-        en: 'Reservation system with availability windows',
-        hr: 'Sustav rezervacija s prozorima dostupnosti',
-      },
-      {
-        en: 'Online payment integration',
-        hr: 'Integracija online plaćanja',
-      },
-      {
-        en: 'Pickup and return scheduling',
-        hr: 'Dogovor preuzimanja i povrata',
+        en: 'Availability-based reservations',
+        hr: 'Rezervacije po dostupnosti',
       },
       {
         en: 'OAuth 2.0 authentication',
         hr: 'Autentikacija putem OAuth 2.0',
       },
       {
-        en: 'Role and permission management (customer / retailer / admin)',
-        hr: 'Upravljanje ulogama i pravima (kupac / trgovac / admin)',
+        en: 'Role-based access (customer / retailer / admin)',
+        hr: 'Uloge i prava (kupac / trgovac / admin)',
       },
       {
-        en: 'Customer reviews of retailers and gear',
-        hr: 'Recenzije trgovaca i opreme od strane korisnika',
+        en: 'Reviews of retailers and gear',
+        hr: 'Recenzije trgovaca i opreme',
       },
     ],
     role: { en: 'Frontend & UI design', hr: 'Izrada frontenda i dizajn sučelja' },
@@ -179,26 +151,26 @@ export const projects: Project[] = [
     },
     description: {
       en: [
-        'A web app that helps pupils and students plan their studying. You can enter a daily plan per subject and track the time you actually spent studying, by logging the duration and description of each activity.',
+        'A web app that helps pupils and students plan their studying. You enter a daily plan per subject and log the duration and notes of each study session.',
         'From this data the app generates charts so users can spot their study patterns, see where time goes and which subjects weigh on them the most.',
       ],
       hr: [
-        'Web aplikacija koja učenicima i studentima pomaže planirati učenje. Mogu unijeti dnevni plan po predmetu i pratiti vrijeme koje su stvarno proveli učeći, kroz unos trajanja i opisa svake aktivnosti.',
-        'Iz tih podataka aplikacija generira grafove pomoću kojih korisnici prepoznaju svoje obrasce učenja, vide kamo im odlazi vrijeme i koji ih predmeti najviše opterećuju.',
+        'Web aplikacija koja učenicima i studentima pomaže planirati učenje. Unosiš dnevni plan po predmetu i bilježiš trajanje i opis svake sesije učenja.',
+        'Iz tih podataka aplikacija generira grafove kako bi korisnici prepoznali obrasce učenja, vidjeli kamo im odlazi vrijeme i koji ih predmeti najviše opterećuju.',
       ],
     },
     features: [
       {
         en: 'Daily study plan per subject',
-        hr: 'Dnevni plan učenja po predmetu',
+        hr: 'Dnevni plan po predmetu',
       },
       {
-        en: 'Time tracking with duration and notes per session',
-        hr: 'Praćenje vremena s trajanjem i bilješkama po sesiji',
+        en: 'Session time tracking with notes',
+        hr: 'Praćenje vremena sesija s bilješkama',
       },
       {
-        en: 'Activity charts and study-pattern insights',
-        hr: 'Grafovi aktivnosti i uvidi u obrasce učenja',
+        en: 'Activity charts and pattern insights',
+        hr: 'Grafovi aktivnosti i uvidi u obrasce',
       },
       {
         en: 'Per-subject time breakdowns',
@@ -232,20 +204,20 @@ export const projects: Project[] = [
     },
     features: [
       {
-        en: 'Top artists, songs and albums across time ranges',
-        hr: 'Najslušaniji izvođači, pjesme i albumi kroz vremenske raspone',
+        en: 'Top artists, songs and albums by time range',
+        hr: 'Top izvođači, pjesme i albumi po rasponu',
       },
       {
         en: 'Spotify OAuth 2.0 sign-in',
         hr: 'Prijava putem Spotify OAuth 2.0',
       },
       {
-        en: 'Upload of extended streaming history (privacy export)',
-        hr: 'Upload proširene povijesti slušanja (privacy export)',
+        en: 'Extended history upload (privacy export)',
+        hr: 'Upload proširene povijesti (privacy export)',
       },
       {
-        en: 'Yearly stats, total listening hours, daily patterns',
-        hr: 'Godišnje statistike, ukupni sati slušanja, dnevni obrasci',
+        en: 'Yearly stats, total hours, daily patterns',
+        hr: 'Godišnje statistike, ukupni sati, dnevni obrasci',
       },
     ],
     note: {
@@ -279,20 +251,20 @@ export const projects: Project[] = [
     },
     features: [
       {
-        en: 'Automated scraping of NBA game data',
-        hr: 'Automatizirano scrapeanje podataka o NBA utakmicama',
+        en: 'Automated NBA game data scraping',
+        hr: 'Automatizirano scrapeanje NBA podataka',
       },
       {
         en: 'Selenium for JS-rendered sources',
-        hr: 'Selenium za izvore koji zahtijevaju JS rendering',
+        hr: 'Selenium za JS-renderirane izvore',
       },
       {
         en: 'BeautifulSoup HTML parsing',
         hr: 'BeautifulSoup za parsiranje HTML-a',
       },
       {
-        en: 'Lightweight web view served by Node.js',
-        hr: 'Lagani web prikaz poslužen kroz Node.js',
+        en: 'Lightweight Node.js web view',
+        hr: 'Lagani Node.js web prikaz',
       },
     ],
     role: { en: 'Full-stack (solo)', hr: 'Samostalni projekt (full-stack)' },

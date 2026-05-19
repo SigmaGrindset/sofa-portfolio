@@ -63,15 +63,11 @@ export function ProjectDetail() {
           </div>
         </div>
         <div className="pd-anim md:col-span-9 space-y-6">
+          <p className="font-display text-2xl leading-snug text-balance text-fg md:text-3xl">
+            {project.tagline[language]}
+          </p>
           {project.description[language].map((para, i) => (
-            <p
-              key={i}
-              className={
-                i === 0
-                  ? 'font-display text-2xl leading-snug text-balance text-fg md:text-3xl'
-                  : 'text-lg leading-relaxed text-muted'
-              }
-            >
+            <p key={i} className="text-lg leading-relaxed text-muted">
               {para}
             </p>
           ))}

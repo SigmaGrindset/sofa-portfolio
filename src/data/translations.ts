@@ -48,6 +48,9 @@ export const translations = {
     back: { en: 'Back to all', hr: 'Natrag na sve' },
     notFound: { en: 'Project not found', hr: 'Projekt nije pronađen' },
     overview: { en: 'Overview', hr: 'Pregled' },
+    features: { en: 'Features', hr: 'Značajke' },
+    note: { en: 'Note', hr: 'Napomena' },
+    next: { en: 'Next', hr: 'Sljedeći' },
   },
   contact: {
     heading: { en: "Let's talk", hr: 'Kontakt' },

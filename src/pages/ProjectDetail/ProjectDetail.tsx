@@ -19,7 +19,7 @@ export function ProjectDetail() {
       gsap.from('.pd-anim', {
         y: 24,
         opacity: 0,
-        stagger: 0.08,
+        stagger: 0.06,
         duration: 0.7,
         ease: 'power3.out',
       });
@@ -62,34 +62,72 @@ export function ProjectDetail() {
             {translations.projects.overview[language]}
           </div>
         </div>
-        <div className="pd-anim md:col-span-9 space-y-10">
-          <p className="font-display text-2xl leading-snug text-balance text-fg md:text-3xl">
-            {project.description[language]}
-          </p>
+        <div className="pd-anim md:col-span-9 space-y-6">
+          {project.description[language].map((para, i) => (
+            <p
+              key={i}
+              className={
+                i === 0
+                  ? 'font-display text-2xl leading-snug text-balance text-fg md:text-3xl'
+                  : 'text-lg leading-relaxed text-muted'
+              }
+            >
+              {para}
+            </p>
+          ))}
 
-          <div className="grid gap-8 border-t border-default pt-8 md:grid-cols-3">
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
-                {translations.projects.role[language]}
+          {project.note && (
+            <div className="mt-6 rounded-2xl border border-default bg-surface p-5">
+              <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+                {translations.projects.note[language]}
               </div>
-              <div className="mt-2 text-fg">{project.role[language]}</div>
+              <p className="text-sm text-fg">{project.note[language]}</p>
             </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
-                {translations.projects.year[language]}
-              </div>
-              <div className="mt-2 text-fg">{project.year}</div>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
-                {translations.projects.tech[language]}
-              </div>
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {project.tech.map((t) => (
-                  <Tag key={t}>{t}</Tag>
-                ))}
-              </div>
-            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="container-page mt-20 grid gap-12 md:grid-cols-12">
+        <div className="pd-anim md:col-span-3">
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+            {translations.projects.features[language]}
+          </div>
+        </div>
+        <div className="pd-anim md:col-span-9">
+          <ul className="divide-y divide-[var(--color-border)] border-y border-default">
+            {project.features.map((f, i) => (
+              <li key={i} className="flex items-start gap-4 py-4">
+                <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="text-fg">{f[language]}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="container-page mt-20 grid gap-8 border-t border-default pt-12 md:grid-cols-3">
+        <div className="pd-anim">
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+            {translations.projects.role[language]}
+          </div>
+          <div className="mt-2 text-fg">{project.role[language]}</div>
+        </div>
+        <div className="pd-anim">
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+            {translations.projects.year[language]}
+          </div>
+          <div className="mt-2 text-fg">{project.year}</div>
+        </div>
+        <div className="pd-anim">
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+            {translations.projects.tech[language]}
+          </div>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {project.tech.map((t) => (
+              <Tag key={t}>{t}</Tag>
+            ))}
           </div>
         </div>
       </div>
@@ -101,7 +139,9 @@ export function ProjectDetail() {
           className="group container-page flex items-center justify-between py-12 transition-colors"
         >
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">Next</div>
+            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+              {translations.projects.next[language]}
+            </div>
             <div className="mt-2 font-display text-3xl font-bold tracking-tight transition-colors group-hover:text-[var(--color-accent)] md:text-5xl">
               {nextProject.title}
             </div>

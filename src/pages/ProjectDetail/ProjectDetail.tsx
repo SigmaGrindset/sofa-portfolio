@@ -77,7 +77,7 @@ export function ProjectDetail() {
           ))}
 
           {project.note && (
-            <div className="mt-6 rounded-2xl border border-default bg-surface p-5">
+            <div className="glass mt-6 rounded-2xl p-5">
               <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
                 {translations.projects.note[language]}
               </div>

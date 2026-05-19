@@ -17,11 +17,14 @@ export function ProjectsGrid() {
     const ctx = gsap.context(() => {
       gsap.from('.project-card', {
         y: 36,
-        opacity: 0,
         stagger: 0.08,
         duration: 0.8,
         ease: 'power3.out',
-        scrollTrigger: { trigger: rootRef.current, start: 'top 80%' },
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: 'top 90%',
+          once: true,
+        },
       });
     }, rootRef);
     return () => ctx.revert();
@@ -70,13 +73,20 @@ function ProjectCard({
     <Link
       to="/projects/$projectId"
       params={{ projectId: project.id }}
-      className={`project-card group relative flex flex-col overflow-hidden rounded-2xl border border-default bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-accent)] ${
+      className={`project-card glass group relative isolate flex flex-col overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 ${
         featured ? 'md:p-8' : ''
       }`}
     >
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[var(--color-accent)]/0 via-transparent to-[var(--color-accent)]/0 opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            'radial-gradient(circle at 30% 0%, rgba(139,92,246,0.22), transparent 55%), radial-gradient(circle at 80% 100%, rgba(34,211,238,0.18), transparent 55%)',
+        }}
+      />
 
-      <div className="mb-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+      <div className="relative mb-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
         <span>{project.year}</span>
         <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
           ↗
@@ -84,16 +94,16 @@ function ProjectCard({
       </div>
 
       <h3
-        className={`font-display font-bold tracking-tight text-fg ${
+        className={`relative font-display font-bold tracking-tight text-fg ${
           featured ? 'text-3xl md:text-4xl' : 'text-2xl'
         }`}
       >
         {project.title}
       </h3>
-      <p className="mt-2 text-muted">{project.tagline[language]}</p>
+      <p className="relative mt-2 text-muted">{project.tagline[language]}</p>
 
       {featured && (
-        <div className="mt-6 flex flex-wrap gap-1.5">
+        <div className="relative mt-6 flex flex-wrap gap-1.5">
           {project.tech.slice(0, 6).map((t) => (
             <Tag key={t}>{t}</Tag>
           ))}

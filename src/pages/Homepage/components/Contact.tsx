@@ -59,7 +59,7 @@ export function Contact() {
           ))}
         </a>
 
-        <div className="mt-16 grid gap-px border border-default bg-[var(--color-border)] md:grid-cols-3">
+        <div className="glass mt-16 grid gap-px overflow-hidden rounded-2xl md:grid-cols-3">
           <ContactRow label={translations.contact.phone[language]} value={PHONE} href={`tel:${PHONE.replace(/\s+/g, '')}`} />
           <ContactRow label={translations.contact.email[language]} value={EMAIL} href={`mailto:${EMAIL}`} />
           <ContactRow label={translations.contact.github[language]} value={GITHUB} href={`https://${GITHUB}`} external />
@@ -85,7 +85,7 @@ function ContactRow({
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
-      className="contact-row group flex items-center justify-between gap-4 bg-bg p-6 transition-colors hover:bg-surface"
+      className="contact-row group flex items-center justify-between gap-4 border-r border-b border-default p-6 transition-colors last:border-r-0 hover:bg-white/[0.03] md:[&:nth-child(3n)]:border-r-0"
     >
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">{label}</div>

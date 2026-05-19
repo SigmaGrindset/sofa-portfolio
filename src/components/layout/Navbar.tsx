@@ -29,7 +29,7 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-default bg-[color-mix(in_srgb,var(--color-bg)_85%,transparent)] backdrop-blur'
+          ? 'border-b border-default bg-[color-mix(in_srgb,var(--color-bg)_65%,transparent)] backdrop-blur-xl backdrop-saturate-150'
           : 'border-b border-transparent'
       }`}
     >

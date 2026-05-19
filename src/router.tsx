@@ -8,6 +8,7 @@ import {
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { CustomCursor } from '@/components/layout/CustomCursor';
+import { AuroraBackground } from '@/components/layout/AuroraBackground';
 import { LanguageProvider } from '@/hooks/useLanguage';
 import { Homepage } from '@/pages/Homepage/Homepage';
 import { ProjectDetail } from '@/pages/ProjectDetail/ProjectDetail';
@@ -15,6 +16,7 @@ import { ProjectDetail } from '@/pages/ProjectDetail/ProjectDetail';
 const rootRoute = createRootRoute({
   component: () => (
     <LanguageProvider>
+      <AuroraBackground />
       <CustomCursor />
       <Navbar />
       <main>

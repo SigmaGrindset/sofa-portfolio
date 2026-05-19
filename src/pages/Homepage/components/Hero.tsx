@@ -43,7 +43,7 @@ export function Hero() {
       className="relative flex min-h-[100svh] items-center pt-24 pb-12"
     >
       <div className="container-page w-full">
-        <div className="hero-status mb-8 inline-flex items-center gap-2 rounded-full border border-default bg-surface px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted">
+        <div className="hero-status glass mb-8 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted">
           <span className="relative grid h-2 w-2 place-items-center">
             <span className="absolute inset-0 animate-ping rounded-full bg-[var(--color-accent)] opacity-75" />
             <span className="relative h-2 w-2 rounded-full bg-[var(--color-accent)]" />
@@ -56,7 +56,10 @@ export function Hero() {
           className="font-display text-5xl font-black leading-[0.95] tracking-tight text-balance sm:text-7xl md:text-8xl lg:text-[9rem]"
         >
           {words.map((word, wi) => (
-            <span key={wi} className="mr-4 inline-block whitespace-nowrap">
+            <span
+              key={wi}
+              className={`mr-4 inline-block whitespace-nowrap ${wi === words.length - 1 ? 'aurora-text' : ''}`}
+            >
               {Array.from(word).map((ch, ci) => (
                 <span key={ci} className="hero-char inline-block">
                   {ch}

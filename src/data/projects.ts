@@ -59,7 +59,7 @@ export const projects: Project[] = [
       },
     ],
     role: { en: 'Frontend development', hr: 'Izrada frontenda' },
-    tech: ['React', 'TypeScript', 'TanStack Router', 'PandaCSS', 'SWR', 'Zustand', 'Figma'],
+    tech: ['React', 'TypeScript', 'TanStack Router', 'PandaCSS', 'SWR', 'Zustand'],
     featured: true,
     year: '2026',
   },
@@ -105,7 +105,7 @@ export const projects: Project[] = [
       },
     ],
     role: { en: 'Full-stack development', hr: 'Full-stack razvoj' },
-    tech: ['Python', 'BeautifulSoup4', 'Node.js', 'Express', 'PostgreSQL', 'React', 'TypeScript', 'TanStack Router', 'Tailwind', 'D3'],
+    tech: ['Python', 'BeautifulSoup4', 'Node.js', 'Express', 'PostgreSQL', 'React', 'TypeScript', 'TanStack Router', 'Tailwind', 'D3', 'Vercel'],
     featured: true,
     year: '2026',
     links: {
@@ -206,7 +206,7 @@ export const projects: Project[] = [
       },
     ],
     role: { en: 'Backend development', hr: 'Backend razvoj' },
-    tech: ['Node.js', 'Express', 'EJS', 'PostgreSQL'],
+    tech: ['Node.js', 'Express', 'EJS', 'PostgreSQL', 'Vercel'],
     year: '2026',
     links: {
       github: 'https://github.com/SigmaGrindset/projekt-r',
@@ -253,7 +253,7 @@ export const projects: Project[] = [
       hr: 'Zbog nedavnih promjena u Spotify API-ju, aplikacije više ne mogu dobiti „extended quota mode“ i ostaju zaglavljene u dev modu. Deploy je živ, ali pristup je ograničen — radi samo za ručno dodane Spotify račune.',
     },
     role: { en: 'Full-stack (solo)', hr: 'Samostalni projekt (full-stack)' },
-    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Spotify API', 'OAuth 2.0'],
+    tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Spotify API', 'OAuth 2.0', 'Vercel'],
     year: '2025',
     links: {
       github: 'https://github.com/SigmaGrindset/spotify_stats',

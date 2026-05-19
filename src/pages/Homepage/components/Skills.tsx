@@ -68,7 +68,7 @@ export function Skills() {
           {[...marqueeItems, ...marqueeItems].map((item, i) => (
             <span key={i} className="flex items-center gap-12">
               {item}
-              <span className="text-[var(--color-accent)]">✦</span>
+              <span className="text-[var(--color-action)]">✦</span>
             </span>
           ))}
         </div>

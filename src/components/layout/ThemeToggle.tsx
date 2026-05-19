@@ -8,7 +8,7 @@ export function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
-      className="group relative grid h-9 w-9 place-items-center rounded-full border border-default text-fg transition hover:border-[var(--color-accent)]"
+      className="group relative grid h-9 w-9 place-items-center rounded-full border border-default text-fg transition hover:border-[var(--color-action)]"
     >
       <span className="relative h-4 w-4">
         <svg

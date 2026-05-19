@@ -32,7 +32,7 @@ export function ProjectDetail() {
       <div className="container-page flex min-h-[80svh] flex-col items-center justify-center gap-4 text-center">
         <div className="font-mono text-xs uppercase tracking-[0.25em] text-muted">404</div>
         <h1 className="font-display text-4xl font-bold">{translations.projects.notFound[language]}</h1>
-        <Link to="/" className="text-[var(--color-accent)] underline">
+        <Link to="/" className="text-[var(--color-action)] underline">
           ← {translations.projects.back[language]}
         </Link>
       </div>
@@ -138,11 +138,11 @@ export function ProjectDetail() {
             <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
               {translations.projects.next[language]}
             </div>
-            <div className="mt-2 font-display text-3xl font-bold tracking-tight transition-colors group-hover:text-[var(--color-accent)] md:text-5xl">
+            <div className="mt-2 font-display text-3xl font-bold tracking-tight transition-colors group-hover:text-[var(--color-action)] md:text-5xl">
               {nextProject.title}
             </div>
           </div>
-          <span className="text-3xl text-muted transition-all duration-300 group-hover:translate-x-2 group-hover:text-[var(--color-accent)]">
+          <span className="text-3xl text-muted transition-all duration-300 group-hover:translate-x-2 group-hover:text-[var(--color-action)]">
             →
           </span>
         </Link>

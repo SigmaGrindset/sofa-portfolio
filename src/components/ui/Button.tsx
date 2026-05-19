@@ -8,14 +8,14 @@ type CommonProps = {
 };
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]';
+  'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]';
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-fg text-[var(--color-bg)] hover:bg-[var(--color-accent)] hover:text-[var(--color-accent-fg)] hover:-translate-y-0.5',
+    'bg-fg text-[var(--color-bg)] hover:bg-[var(--color-action)] hover:text-[var(--color-action-fg)] hover:-translate-y-0.5',
   secondary:
-    'border border-default text-fg hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]',
-  ghost: 'text-fg hover:text-[var(--color-accent)]',
+    'border border-default text-fg hover:border-[var(--color-action)] hover:text-[var(--color-action)]',
+  ghost: 'text-fg hover:text-[var(--color-action)]',
 };
 
 type ButtonProps = CommonProps & ButtonHTMLAttributes<HTMLButtonElement>;

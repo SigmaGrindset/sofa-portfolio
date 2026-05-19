@@ -10,9 +10,7 @@ const EMAIL = 'antoniobnoni@gmail.com';
 const PHONE = '091 948 6264';
 const GITHUB = 'github.com/SigmaGrindset';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/antonio-batarilovi%C4%87-509a26240/';
-const LINKEDIN_LABEL = 'linkedin.com/in/antonio-batarilović';
 const CV_URL = '/cv.pdf';
-const CV_LABEL = 'cv.pdf';
 
 export function Contact() {
   const { language } = useLanguage();
@@ -75,7 +73,7 @@ export function Contact() {
 
         <a
           href={`mailto:${EMAIL}`}
-          className="contact-email group block break-all font-display text-4xl font-black tracking-tight text-fg transition-colors hover:text-[var(--color-accent)] sm:text-6xl md:text-7xl lg:text-8xl"
+          className="contact-email group block break-all font-display text-4xl font-black tracking-tight text-fg transition-colors hover:text-[var(--color-action)] sm:text-6xl md:text-7xl lg:text-8xl"
         >
           {Array.from(EMAIL).map((c, i) => (
             <span key={i} className="ch inline-block transition-transform duration-300 group-hover:-translate-y-1" style={{ transitionDelay: `${i * 8}ms` }}>

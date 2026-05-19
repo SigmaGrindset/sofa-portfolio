@@ -11,7 +11,7 @@ export function Card({
 }) {
   return (
     <As
-      className={`group relative overflow-hidden rounded-2xl border border-default bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-accent)] ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-default bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--color-action)] ${className}`}
     >
       {children}
     </As>

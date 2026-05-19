@@ -46,8 +46,8 @@ export function Hero() {
       <div className="container-page w-full">
         <div className="hero-status glass mb-8 inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted">
           <span className="relative grid h-2 w-2 place-items-center">
-            <span className="absolute inset-0 animate-ping rounded-full bg-[var(--color-accent)] opacity-75" />
-            <span className="relative h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+            <span className="absolute inset-0 animate-ping rounded-full bg-[var(--color-action)] opacity-75" />
+            <span className="relative h-2 w-2 rounded-full bg-[var(--color-action)]" />
           </span>
           {translations.hero.status[language]}
         </div>
@@ -89,7 +89,7 @@ export function Hero() {
             href="/cv.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-[var(--color-accent-fg)] transition-transform hover:-translate-y-0.5"
+            className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-action)] px-5 py-2.5 text-sm font-medium text-[var(--color-action-fg)] transition-transform hover:-translate-y-0.5"
           >
             <span>{translations.hero.downloadCv[language]}</span>
             <span className="transition-transform duration-300 group-hover:translate-y-0.5">↓</span>

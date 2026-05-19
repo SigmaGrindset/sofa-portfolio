@@ -24,7 +24,7 @@ export function ProjectHero({ project }: { project: Project }) {
               href={live}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-[var(--color-accent-fg)] transition-transform hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-action)] px-5 py-2.5 text-sm font-medium text-[var(--color-action-fg)] transition-transform hover:-translate-y-0.5"
             >
               <span>{translations.projects.viewLive[language]}</span>
               <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>

@@ -8,9 +8,8 @@
   --color-muted: #6B6B66;
   --color-border: #E4E4DF;
   --color-surface: #FFFFFF;
-  --color-accent: #C6FF3D;
-  --color-accent-2: #22D3EE;
-  --color-accent-fg: #0A0A0A;
+  --color-action: #C6FF3D;
+  --color-action-fg: #0A0A0A;
   --color-aurora-1: #8B5CF6;
   --color-aurora-2: #EC4899;
   --color-aurora-3: #22D3EE;
@@ -51,19 +50,18 @@
     transition: background-color 300ms ease, color 300ms ease;
   }
   ::selection {
-    background: var(--color-accent);
-    color: var(--color-accent-fg);
+    background: var(--color-action);
+    color: var(--color-action-fg);
   }
 }
 
 @layer utilities {
   .bg-bg { background-color: var(--color-bg); }
   .bg-surface { background-color: var(--color-surface); }
-  .bg-accent { background-color: var(--color-accent); }
+  .bg-action { background-color: var(--color-action); }
   .text-fg { color: var(--color-fg); }
   .text-muted { color: var(--color-muted); }
-  .text-accent { color: var(--color-accent); }
-  .text-accent-2 { color: var(--color-accent-2); }
+  .text-action { color: var(--color-action); }
   .border-default { border-color: var(--color-border); }
 
   .font-display { font-family: var(--font-display); }
@@ -168,7 +166,7 @@
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  background: var(--color-accent);
+  background: var(--color-action);
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
@@ -183,7 +181,7 @@
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 1.5px solid var(--color-accent);
+  border: 1.5px solid var(--color-action);
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);

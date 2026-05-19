@@ -18,7 +18,7 @@ export function NotFound() {
       </p>
       <Link
         to="/"
-        className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-[var(--color-accent-fg)] transition-transform hover:-translate-y-0.5"
+        className="group inline-flex items-center gap-2 rounded-full bg-[var(--color-action)] px-5 py-2.5 text-sm font-medium text-[var(--color-action-fg)] transition-transform hover:-translate-y-0.5"
       >
         <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
         <span>{translations.notFound.home[language]}</span>

@@ -41,7 +41,7 @@ export function Skills() {
             02 — {translations.skills.heading[language]}
           </div>
           <h2 className="md:col-span-9 font-display text-4xl font-bold tracking-tight md:text-5xl">
-            Tools I reach for.
+            {translations.skills.tagline[language]}
           </h2>
         </div>
 

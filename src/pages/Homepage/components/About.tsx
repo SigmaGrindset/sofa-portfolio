@@ -33,9 +33,9 @@ export function About() {
   }, [language]);
 
   const meta = [
-    { label: translations.about.location[language], value: 'Zagreb, Croatia' },
-    { label: translations.about.studying[language], value: 'FER, year 3' },
-    { label: translations.about.currently[language], value: 'Sofascore Academy' },
+    { label: translations.about.location[language], value: translations.about.locationValue[language] },
+    { label: translations.about.studying[language], value: translations.about.studyingValue[language] },
+    { label: translations.about.currently[language], value: translations.about.currentlyValue[language] },
   ];
 
   return (

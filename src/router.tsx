@@ -12,8 +12,10 @@ import { AuroraBackground } from '@/components/layout/AuroraBackground';
 import { LanguageProvider } from '@/hooks/useLanguage';
 import { Homepage } from '@/pages/Homepage/Homepage';
 import { ProjectDetail } from '@/pages/ProjectDetail/ProjectDetail';
+import { NotFound } from '@/pages/NotFound/NotFound';
 
 const rootRoute = createRootRoute({
+  notFoundComponent: NotFound,
   component: () => (
     <LanguageProvider>
       <AuroraBackground />

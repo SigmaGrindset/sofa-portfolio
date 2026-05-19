@@ -58,7 +58,7 @@ export function ProjectsGrid() {
             03 — {translations.projects.heading[language]}
           </div>
           <h2 className="md:col-span-9 font-display text-4xl font-bold tracking-tight md:text-5xl">
-            Things I&apos;ve built.
+            {translations.projects.tagline[language]}
           </h2>
         </div>
 
@@ -117,7 +117,7 @@ function ProjectCard({
       <div className="relative mb-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
         <span className="inline-flex items-center gap-3">
           {project.year}
-          {featured && <span className="text-accent">★ Featured</span>}
+          {featured && <span className="text-accent">★ {translations.projects.featured[language]}</span>}
         </span>
         <span className="inline-flex h-[14px] w-[14px] items-center justify-center transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

@@ -31,9 +31,13 @@ export const translations = {
     location: { en: 'Based in', hr: 'Lokacija' },
     studying: { en: 'Studying', hr: 'Studiram' },
     currently: { en: 'Currently', hr: 'Trenutno' },
+    locationValue: { en: 'Zagreb, Croatia', hr: 'Zagreb, Hrvatska' },
+    studyingValue: { en: 'FER, year 3', hr: 'FER, 3. godina' },
+    currentlyValue: { en: 'Sofascore Academy', hr: 'Sofascore Academy' },
   },
   skills: {
     heading: { en: 'Skills', hr: 'Vještine' },
+    tagline: { en: 'Tools I reach for.', hr: 'Alati koje koristim.' },
     groups: {
       frontend: { en: 'Frontend', hr: 'Frontend' },
       backend: { en: 'Backend', hr: 'Backend' },
@@ -43,6 +47,8 @@ export const translations = {
   },
   projects: {
     heading: { en: 'Selected work', hr: 'Odabrani projekti' },
+    tagline: { en: "Things I've built.", hr: 'Stvari koje sam izradio.' },
+    featured: { en: 'Featured', hr: 'Istaknuto' },
     viewAll: { en: 'View project', hr: 'Pogledaj projekt' },
     role: { en: 'Role', hr: 'Uloga' },
     tech: { en: 'Stack', hr: 'Tehnologije' },
@@ -70,6 +76,15 @@ export const translations = {
   },
   footer: {
     rights: { en: 'All rights reserved', hr: 'Sva prava pridržana' },
+  },
+  notFound: {
+    code: { en: '404', hr: '404' },
+    heading: { en: 'Page not found', hr: 'Stranica nije pronađena' },
+    body: {
+      en: "The page you're looking for doesn't exist or has moved.",
+      hr: 'Stranica koju tražite ne postoji ili je premještena.',
+    },
+    home: { en: 'Back home', hr: 'Natrag na početnu' },
   },
 } as const;
 

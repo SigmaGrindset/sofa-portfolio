@@ -15,8 +15,8 @@ export const translations = {
       hr: ['Frontend developer', 'Student FER-a', 'Sofascore Academy'],
     },
     intro: {
-      en: 'Building thoughtful web experiences with React, TypeScript and an eye for design.',
-      hr: 'Gradim promišljena web iskustva uz React, TypeScript i smisao za dizajn.',
+      en: 'Crafting fast, considered interfaces for the modern web.',
+      hr: 'Izrađujem brza i promišljena sučelja za moderni web.',
     },
     scroll: { en: 'Scroll', hr: 'Skrolaj' },
     downloadCv: { en: 'Download CV', hr: 'Preuzmi CV' },

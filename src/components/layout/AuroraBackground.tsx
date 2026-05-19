@@ -65,10 +65,7 @@ void main() {
   vec2 p = uv - 0.5;
   p.x *= u_res.x / u_res.y;
 
-  // Base — deep navy
-  vec3 base = vec3(0.020, 0.024, 0.052);
-
-  // Nebula: domain-warped low-frequency fbm in palette colors, very muted
+  // Shared nebula geometry — same warp/noise drives both light & dark paths
   float t = u_time * 0.12;
   vec2 q = p * 1.2;
   vec2 flow = vec2(t * 0.35, t * 0.18);
@@ -79,38 +76,45 @@ void main() {
   float n1 = fbm(q + warp * 2.4 + flow);
   float n2 = fbm(q * 1.6 + warp * 1.8 - flow * 0.6 + 7.3);
 
-  // palette (violet / pink / cyan) — but desaturated and dim
-  vec3 violet = vec3(0.27, 0.18, 0.42);
-  vec3 pink   = vec3(0.36, 0.15, 0.32);
-  vec3 cyan   = vec3(0.07, 0.22, 0.32);
-
-  vec3 nebula = mix(violet, cyan, smoothstep(0.35, 0.75, n1));
-  nebula = mix(nebula, pink, smoothstep(0.55, 0.9, n2) * 0.55);
-
-  // mask the nebula so it's patchy, not a wash
   float mask = smoothstep(0.42, 0.78, n1) * 0.7
              + smoothstep(0.5, 0.85, n2) * 0.35;
-  mask *= 0.72; // overall intensity cap — keeps it muted
 
-  vec3 col = base + nebula * mask;
-
-  // gentle radial vignette toward edges (slightly darker corners)
   float vig = smoothstep(1.1, 0.25, length(p));
-  col *= mix(0.7, 1.0, vig);
 
-  // Starfield — three layers for parallax/depth
+  // ---- DARK PATH (unchanged) ----
+  vec3 baseDark = vec3(0.020, 0.024, 0.052);
+  vec3 violetD = vec3(0.27, 0.18, 0.42);
+  vec3 pinkD   = vec3(0.36, 0.15, 0.32);
+  vec3 cyanD   = vec3(0.07, 0.22, 0.32);
+  vec3 nebD = mix(violetD, cyanD, smoothstep(0.35, 0.75, n1));
+  nebD = mix(nebD, pinkD, smoothstep(0.55, 0.9, n2) * 0.55);
+  float maskD = mask * 0.72;
+  vec3 colDark = baseDark + nebD * maskD;
+  colDark *= mix(0.7, 1.0, vig);
+
   vec2 suv = uv * vec2(u_res.x / u_res.y, 1.0);
   float stars = 0.0;
   stars += starLayer(suv, 90.0,  0.012, 1.6, 1.0) * 0.55;
   stars += starLayer(suv, 160.0, 0.008, 2.3, 7.0) * 0.75;
   stars += starLayer(suv, 240.0, 0.006, 3.1, 13.0) * 0.9;
-
-  // tint stars slightly with palette so they're not pure white
   vec3 starCol = mix(vec3(0.85, 0.88, 1.0), vec3(0.95, 0.88, 1.0), hash(floor(suv * 50.0)));
-  col += starCol * stars * 0.85;
+  colDark += starCol * stars * 0.85;
 
-  // slight overall darken control (for light mode)
-  col = mix(col, vec3(0.97, 0.97, 0.95), u_dark);
+  // ---- LIGHT PATH ----
+  // lavender-white substrate matching --color-bg #F5F3FF
+  vec3 baseLight = vec3(0.961, 0.953, 1.0);
+  // deeper palette so colors hold on a light substrate (matches token hues)
+  vec3 violetL = vec3(0.427, 0.157, 0.851); // #6D28D9
+  vec3 pinkL   = vec3(0.859, 0.153, 0.467); // #DB2777
+  vec3 cyanL   = vec3(0.033, 0.569, 0.698); // #0891B2
+  vec3 nebL = mix(violetL, cyanL, smoothstep(0.35, 0.75, n1));
+  nebL = mix(nebL, pinkL, smoothstep(0.55, 0.9, n2) * 0.55);
+  float maskL = mask * 0.55; // softer so the page stays light
+  vec3 colLight = mix(baseLight, nebL, maskL);
+  // very gentle vignette — lift center slightly
+  colLight *= mix(0.94, 1.0, vig);
+
+  vec3 col = mix(colDark, colLight, u_dark);
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -174,7 +178,7 @@ export function AuroraBackground() {
       const t = (performance.now() - start) / 1000;
       gl.uniform1f(uTime, t);
       const isDark = document.documentElement.classList.contains('dark');
-      gl.uniform1f(uDark, isDark ? 0.0 : 0.92);
+      gl.uniform1f(uDark, isDark ? 0.0 : 1.0);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if (!reduced) rafId = window.requestAnimationFrame(render);
     };
